@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Práctica Auth</title>
+  <style>
+    /* Estilos generales para centrar todo y poner fondo oscuro */
+    body { 
+      background: #111; 
+      color: white; 
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+      display: grid; 
+      place-content: center; 
+      height: 100vh; 
+      margin: 0; 
+    }
+
+    /* Tarjeta principal con mayor tamaño y padding */
+    .box { 
+      background: #222; 
+      padding: 40px; /* Aumentado de 20px a 40px para más aire */
+      border-radius: 15px; 
+      width: 400px; /* Aumentado de 300px a 400px de ancho */
+      text-align: center; 
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    h1, h2 {
+      margin-bottom: 30px;
+      font-size: 2rem; /* Título más grande */
+    }
+
+    /* Inputs más grandes y con mejor espaciado interno */
+    input { 
+      width: 100%; 
+      padding: 15px; /* Más espacio para escribir */
+      margin: 15px 0; 
+      border-radius: 8px; 
+      border: 1px solid #444; 
+      background: #333; 
+      color: white;
+      font-size: 1.1rem; /* Texto más grande en el input */
+      box-sizing: border-box; 
+    }
+
+    /* Botones más robustos */
+    button { 
+      width: 100%; 
+      padding: 15px; 
+      font-size: 1.1rem; 
+      font-weight: bold;
+      border: none; 
+      cursor: pointer; 
+      border-radius: 8px; 
+      transition: opacity 0.2s;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .btn-login { background: #007bff; color: white; margin-bottom: 10px; }
+    .btn-register { background: #28a745; color: white; }
+    .btn-logout { background: #dc3545; margin-top: 20px; color: white; }
+
+    #msg { color: #ff6b6b; margin-top: 15px; font-weight: bold; }
+    
+    a { color: #00ff88; text-decoration: none; font-size: 1.1rem; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <% if (user) { %>
+      <h1>Hola, <%= user.username %></h1>
+      <a href="/protected">Ir a zona segura →</a><br>
+      <button class="btn-logout" onclick="logout()">Cerrar Sesión</button>
+    <% } else { %>
+      <h2>Acceso</h2>
+      <input type="text" id="u" placeholder="Nombre de usuario">
+      <input type="password" id="p" placeholder="Contraseña">
+      <button class="btn-login" onclick="auth('/login')">Entrar</button>
+      <button class="btn-register" onclick="auth('/register')">Registrarse</button>
+      <p id="msg"></p>
+    <% } %>
+  </div>
+
+  <script>
+    async function auth(url) {
+      const username = document.getElementById('u').value
+      const password = document.getElementById('p').value
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+      })
+      const data = await res.json()
+      if (res.ok) window.location.reload()
+      else document.getElementById('msg').innerText = data.error
+    }
+
+    async function logout() {
+      await fetch('/logout', { method: 'POST' })
+      window.location.reload()
+    }
+  </script>
+</body>
+</html>

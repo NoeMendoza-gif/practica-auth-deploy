@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>ACCESO CONCEDIDO | IdeaVault</title>
+  <style>
+    /* Reset y base futurista */
+    body {
+      background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
+      color: #00ff88;
+      font-family: 'Courier New', Courier, monospace; /* Fuente tipo terminal */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+      text-transform: uppercase;
+    }
+
+    /* Animación de parpadeo estilo Neón */
+    @keyframes flicker {
+      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
+      20%, 24%, 55% { opacity: 0.4; }
+    }
+
+    /* Contenedor principal masivo */
+    .vault-container {
+      text-align: center;
+      border: 4px solid #00ff88;
+      padding: 60px 100px;
+      border-radius: 20px;
+      background: rgba(0, 255, 136, 0.05);
+      box-shadow: 0 0 50px rgba(0, 255, 136, 0.2), inset 0 0 30px rgba(0, 255, 136, 0.1);
+      position: relative;
+    }
+
+    /* Título Gigante */
+    h1 {
+      font-size: 6rem; /* SUPER GRANDE */
+      margin: 0;
+      letter-spacing: 15px;
+      text-shadow: 0 0 10px #00ff88, 0 0 20px #00ff88, 0 0 40px #00ff88;
+      animation: flicker 3s infinite;
+    }
+
+    /* Texto de bienvenida */
+    h2 {
+      font-size: 2rem;
+      margin-top: 20px;
+      color: #fff;
+      text-shadow: 0 0 10px rgba(255,255,255,0.5);
+    }
+
+    /* Decoración de esquinas HUD */
+    .corner {
+      position: absolute; width: 30px; height: 30px; border: 4px solid #00ff88;
+    }
+    .top-left { top: -10px; left: -10px; border-right: 0; border-bottom: 0; }
+    .bottom-right { bottom: -10px; right: -10px; border-left: 0; border-top: 0; }
+
+    /* Link de retorno con estilo de botón de consola */
+    .back-btn {
+      margin-top: 50px;
+      padding: 15px 40px;
+      color: #000;
+      background: #00ff88;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.2rem;
+      border-radius: 5px;
+      box-shadow: 0 0 20px #00ff88;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      background: #fff;
+      box-shadow: 0 0 30px #fff;
+      transform: scale(1.1);
+    }
+
+    .status {
+      margin-top: 15px;
+      font-size: 0.9rem;
+      letter-spacing: 3px;
+      opacity: 0.7;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="vault-container">
+    <div class="corner top-left"></div>
+    <div class="corner bottom-right"></div>
+    
+    <div class="status">>>> ENCRIPTACIÓN JWT NIVEL 4 ACTIVA <<<</div>
+    <h1>CONCEDIDO</h1>
+    <h2>BIENVENIDO, AGENTE <%= username %></h2>
+    <div class="status">SESIÓN AUTORIZADA POR 60 MINUTOS</div>
+  </div>
+
+  <a href="/" class="back-btn">FINALIZAR MISIÓN</a>
+
+</body>
+</html>
